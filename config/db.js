@@ -9,7 +9,7 @@ var config = require('../config/config');
 const connectionSettings = {
     host: process.env.DB_HOST || config.dbHost,
     user: process.env.DB_USER || config.dbUser,
-    password: process.env.DB_PASSWORD,
+    password: process.env.DB_PASSWORD || config.secretkey,
     database: process.env.DB_DATABASE || config.dbDatabase,
     port: 3306,
     debug: false

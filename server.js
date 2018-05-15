@@ -23,6 +23,7 @@ app.use('*', function(req, res, next){
 	next()
 })
 
+
 app.use('/api', auth_routes)
 
 app.all('*', AuthController.validateToken);

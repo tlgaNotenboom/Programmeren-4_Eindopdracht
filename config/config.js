@@ -1,5 +1,5 @@
 module.exports = {
-    "secretkey": "MySuperDuperSecretKey-123454321AbCd",
+    "secretkey": "secret",
     "webPort": "3000",
     "dbHost": "localhost",
     "dbUser": "studentenhuis_user",
