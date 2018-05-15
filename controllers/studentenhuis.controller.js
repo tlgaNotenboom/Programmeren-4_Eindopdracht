@@ -1,40 +1,40 @@
 const mysql = require('mysql')
-const token = req.header('x-access-token') || ""
+const auth = require('../util/auth/authentication')
+const db = require('../config/db')
+const ApiError = require('../domain/ApiError')
+const Studentenhuis = require('../domain/Studentenhuis')
+const StudentenhuisResponse = require('../domain/StudentenhuisResponse')
 let userID
 var email
 
-var payload = auth.decodeToken(token, (err, payload)=>{
-    email = payload.sub.user
-})
+module.exports = {
 
-function addStudentenhuis(req, res, next){
-    console.log('studentenhuis.controller addStudentenhuis')
-    findUserID();
-    db.query('INSERT INTO studentenhuis(Naam, Adres, UserID) VALUES ('+req.body.name+', '+ req.body.address+ ', '+userID+')', function (error, rows, fields) {
-        if (error) {
-            next(error);
-        } else {
-            res.status(200).json({
-                status: {
-                    query: 'OK'
-                },
-                result: rows
-            }).end()
-        }
-    })
-}
-
-function findUserID(){
-    db.query('SELECT '+"'"+'ID '+"'"+ 'FROM '+"'"+'user '+"'"+'WHERE Email = '+ email, function(error, result){
-        if (error) {
-            next(error);
-        } else {
-            res.status(200).json({
-                status: {
-                    query: 'OK'
-                },  
-                userID = results[0].ID
-            })
-        } 
-    })
+    addStudentenhuis(req, res, next) {
+        const token = req.header('x-access-token') || ""
+        var payload = auth.decodeToken(token, (err, payload) => {
+            email = payload.sub.user
+        })
+        console.log('studentenhuis.controller addStudentenhuis')
+        db.query('SELECT ID FROM user WHERE Email = ' + "'" + email + "'", function (error, result) {
+            if (error) {
+                next(error);
+            } else {
+                studentenhuis = new Studentenhuis(req.body.name, req.body.address)
+                db.query('INSERT INTO studentenhuis(Naam, Adres, UserID) VALUES (' + "'" + studentenhuis.getNaam() + "'" + ', ' + "'" + studentenhuis.getAdres() + "'" + ', ' + "'" + result[0].ID + "'" + ')', function (error, rows, fields) {
+                    if (error) {
+                        next(new ApiError(error, 401));
+                    } else {
+                        db.query('SELECT * FROM view_studentenhuis WHERE Naam = ' + "'" + studentenhuis.getNaam() + "'" + ' AND Adres = ' + "'" + studentenhuis.getAdres() + "'", (error, result) => {
+                            if (error) {
+                                next(new ApiError(error, 401))
+                            } else {
+                                studentenhuisResponse = new StudentenhuisResponse(result[0].ID, result[0].Naam, result[0].Adres, result[0].Contact, result[0].Email, )
+                                res.status(200).json(studentenhuisResponse.getResponse()).end()
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
 }
