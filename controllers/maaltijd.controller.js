@@ -87,15 +87,10 @@ module.exports = {
                                     if(error) {
                                         next(new ApiError(error, 404))
                                     } else {
-                                        db.query('SELECT * FROM maaltijd WHERE ID = ' + "'" + req.params.maaltijdId + "'", (error, result) => {
-                                            if (error) {
-                                                next(new ApiError(error, 404))
-                                            } else {
+                                      
                                                 res.status(200).json({
                                                     Deleted: 'YES'
                                                 })
-                                            }
-                                        })
                                     }
                                 })
                             }

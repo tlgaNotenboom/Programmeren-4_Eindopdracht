@@ -1,9 +1,11 @@
 class DeelnemerResponse {
+
     constructor(voornaam, achternaam, email){
         this.voornaam = voornaam,
         this.achternaam = achternaam,
         this.email = email
     }
+
     getDefaultResponse(){
         let response = {
             voornaam: this.voornaam,
@@ -12,3 +14,4 @@ class DeelnemerResponse {
         }
     }
 }
+module.exports = DeelnemerResponse
