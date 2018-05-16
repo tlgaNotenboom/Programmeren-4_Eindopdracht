@@ -65,7 +65,7 @@ module.exports = {
         },
 
         updateStudentenHuis(req, res, next) {
-            db.query('SELECT Email FROM user WHERE ID = ' + "'" + req.params.huiseId + "'", function (error, result) {
+            db.query('SELECT Email FROM user WHERE ID = ' + "'" + req.params.huisId + "'", function (error, result) {
                         if (error) {
                             next(new ApiError(error, 404));
                         } else {
@@ -98,7 +98,7 @@ module.exports = {
             },
             
             deleteStudentenhuis(req, res, next) {
-            db.query('SELECT Email FROM user WHERE ID = ' + "'" + req.params.huiseId + "'", function (error, result) {
+            db.query('SELECT Email FROM user WHERE ID = ' + "'" + req.params.huisId + "'", function (error, result) {
                 if (error) {
                     next(new ApiError(error, 404));
                 } else {

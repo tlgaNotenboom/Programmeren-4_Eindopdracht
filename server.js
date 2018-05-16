@@ -34,7 +34,7 @@ app.use('/api', maaltijd_routes)
 
 app.use('/api', studentenhuis_routes)
 
-app.use('*', function (req, res, next) {
+app.use('*', (req, res, next) => {
 	console.log('Non-existing endpoint')
 	const error = new ApiError("Deze endpoint bestaat niet", 404)
 	next(error)
