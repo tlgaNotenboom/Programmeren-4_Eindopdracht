@@ -2,9 +2,9 @@ const mysql = require('mysql')
 const auth = require('../util/auth/authentication')
 const db = require('../config/db')
 const assert = require('assert')
-const ApiError = require('../domain/ApiError')
-const Studentenhuis = require('../domain/Studentenhuis')
-const StudentenhuisResponse = require('../domain/StudentenhuisResponse')
+const ApiError = require('../models/ApiError')
+const Studentenhuis = require('../models/Studentenhuis')
+const StudentenhuisResponse = require('../models/StudentenhuisResponse')
 let userID
 var email
 
