@@ -46,7 +46,6 @@ app.use((err, req, res, next) => {
 	res.status((err.code || 404)).json(err).end()	
 })
 
-
 app.listen(port, () => {
 	console.log('Server running on port ' + port)
 })

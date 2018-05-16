@@ -19,7 +19,12 @@ module.exports = {
                 if (error) {
                     next(error);
                 } else {
+                    if(req.body.naam !== undefined && req.body.adres !== undefined) {
                     studentenhuis = new Studentenhuis(req.body.naam, req.body.adres)
+                    } else {
+                        next(new ApiError("Missing value", 412))
+                    }
+                    
                     db.query('INSERT INTO studentenhuis(Naam, Adres, UserID) VALUES (' + "'" + studentenhuis.getNaam() + "'" + ', ' + "'" + studentenhuis.getAdres() + "'" + ', ' + "'" + result[0].ID + "'" + ')', function (error, rows, fields) {
                         if (error) {
                             next(new ApiError(error, 401));
@@ -28,7 +33,7 @@ module.exports = {
                                 if (error) {
                                     next(new ApiError(error, 404))
                                 } else {
-                                    studentenhuisResponse = new StudentenhuisResponse(result[0].ID, result[0].Naam, result[0].Adres, result[0].Contact, result[0].Email, )
+                                    studentenhuisResponse = new StudentenhuisResponse(result[0].ID, result[0].Naam, result[0].Adres, result[0].Contact, result[0].Email)
                                     res.status(200).json(studentenhuisResponse.getResponse()).end()
                                 }
                             })
@@ -58,9 +63,13 @@ module.exports = {
                 if (error) {
                     next(new ApiError(error, 401))
                 } else {
+                    if(result[0] !== undefined) {
                     studentenhuisResponse = new StudentenhuisResponse(result[0].ID, result[0].Naam, result[0].Adres, result[0].Contact, result[0].Email)
                     res.status(200).json(studentenhuisResponse)
+                } else {
+                    next(new ApiError("Studentenhuis not found", 404))
                 }
+            }
             })
         },
 
