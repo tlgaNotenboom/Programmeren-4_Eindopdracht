@@ -7,9 +7,7 @@ chai.use(chaiHttp)
 
 describe('Studentenhuis API POST', () => {
     it('should throw an error when using invalid JWT token', (done) => {
-        //
-        // Hier schrijf je jouw testcase.
-        //
+        
         done()
     })
 
