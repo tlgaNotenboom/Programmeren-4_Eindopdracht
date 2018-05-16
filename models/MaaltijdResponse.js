@@ -14,7 +14,7 @@ class MaaltijdResponse {
         let response = {
             Naam: this.naam,
             Beschrijving: this.beschrijving,
-            Ingredienten: this.contact,
+            Ingredienten: this.ingredienten,
             Allergie: this.allergie,
             Prijs: this.prijs  
         }

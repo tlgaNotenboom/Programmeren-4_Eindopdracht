@@ -108,8 +108,11 @@ module.exports = {
             if (error) {
                 next(error);
             } else {
-                console.log(result[0].ID)
-                maaltijd = new Maaltijd(req.body.naam, req.body.beschrijving, req.body.ingredienten, req.body.allergie, req.body.prijs, req.params.huisId)
+                if(req.body.naam !== undefined && req.body.beschrijving !== undefined && req.body.beschrijving !== undefined && req.body.ingredienten !== undefined && req.body.allergie !== undefined && req.body.prijs !== undefined) {
+                    maaltijd = new Maaltijd(req.body.naam, req.body.beschrijving, req.body.ingredienten, req.body.allergie, req.body.prijs, req.params.huisId)
+                    } else {
+                        next(new ApiError("Missing value", 412))
+                    }
                 db.query('INSERT INTO maaltijd(Naam, Beschrijving, Ingredienten, Allergie, Prijs, UserID, StudentenhuisID) VALUES ('+ "'" + maaltijd.getNaam() + "'" + ' ,' + "'" + maaltijd.getBeschrijving() + "'"+', ' + "'" +maaltijd.getIngredienten() + "'"+', '+ "'" + maaltijd.getAllergie()+"'"+', '+"'"+ maaltijd.getPrijs()+"'"+', '+ "'" + result[0].ID +"'"+', '+ "'"+ maaltijd.getStudentenhuisID() + "')", function (error, rows, fields) {
                     if (error) {
                         next(new ApiError(error, 401));
