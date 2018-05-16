@@ -2,7 +2,7 @@ const assert = require('assert')
 const ApiError = require('../domain/ApiError')
 
 class Maaltijd {
-    constructor(naam, beschrijving, ingredienten, allergie, prijs) {
+    constructor(naam, beschrijving, ingredienten, allergie, prijs, studentenhuisID) {
         try {
             assert(typeof(naam) === 'string', 'Naam must be a string')
             assert(typeof(beschrijving) === 'string', 'Beschrijving must be a string')
@@ -17,6 +17,26 @@ class Maaltijd {
         this.ingredienten = ingredienten
         this.allergie = allergie
         this.prijs = prijs
+        this.studentenhuisID = studentenhuisID
+    }
+    getNaam() {
+        return this.naam
+    }
+    getBeschrijving() {
+        return this.beschrijving
+    }
+    getIngredienten() {
+        return this.ingredienten
+    }
+    getAllergie() {
+        return this.allergie
+    }
+    getPrijs() {
+        return this.prijs
+    }
+
+    getStudentenhuisID(){
+        return this.studentenhuisID
     }
 }
 
