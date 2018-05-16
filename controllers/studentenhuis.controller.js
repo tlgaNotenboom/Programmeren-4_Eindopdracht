@@ -1,6 +1,7 @@
 const mysql = require('mysql')
 const auth = require('../util/auth/authentication')
 const db = require('../config/db')
+const assert = require('assert')
 const ApiError = require('../domain/ApiError')
 const Studentenhuis = require('../domain/Studentenhuis')
 const StudentenhuisResponse = require('../domain/StudentenhuisResponse')
@@ -8,7 +9,6 @@ let userID
 var email
 
 module.exports = {
-
         addStudentenhuis(req, res, next) {
             const token = req.header('x-access-token') || ""
             var payload = auth.decodeToken(token, (err, payload) => {
@@ -19,7 +19,7 @@ module.exports = {
                 if (error) {
                     next(error);
                 } else {
-                    studentenhuis = new Studentenhuis(req.body.name, req.body.address)
+                    studentenhuis = new Studentenhuis(req.body.naam, req.body.adres)
                     db.query('INSERT INTO studentenhuis(Naam, Adres, UserID) VALUES (' + "'" + studentenhuis.getNaam() + "'" + ', ' + "'" + studentenhuis.getAdres() + "'" + ', ' + "'" + result[0].ID + "'" + ')', function (error, rows, fields) {
                         if (error) {
                             next(new ApiError(error, 401));
@@ -65,17 +65,18 @@ module.exports = {
         },
 
         updateStudentenHuis(req, res, next) {
-            db.query('SELECT Email FROM user WHERE ID = ' + "'" + req.params.huisId + "'", function (error, result) {
+            let email
+        const token = req.header('x-access-token') || ""
+        var payload = auth.decodeToken(token, (err, payload)=>{
+            email = payload.sub.user
+            db.query('SELECT Email FROM user WHERE Email = ' + "'" + email + "'", function (error, result) {
                         if (error) {
                             next(new ApiError(error, 404));
                         } else {
-                            const token = req.header('x-access-token') || ""
-                            var payload = auth.decodeToken(token, (err, payload) => {
-                                let email = payload.sub.user
                                 if (email !== result[0].Email) {
                                     next(new ApiError(err, 409))
                                 } else {
-                                    studentenhuis = new Studentenhuis(req.body.name, req.body.address)
+                                    studentenhuis = new Studentenhuis(req.body.naam, req.body.adres)
                                     db.query('UPDATE studentenhuis SET Naam = ' + "'" + studentenhuis.getNaam() + "'" + ', Adres = ' + "'" + studentenhuis.getAdres() + "'" + 'WHERE ID = ' + "'" + req.params.huisId + "'", (error, result) => {
                                         if(error) {
                                             next(new ApiError(error, 404))
@@ -92,8 +93,8 @@ module.exports = {
                                     })
                                     
                                 }
-                            })
-                        }
+                            }
+                        })
                     })
             },
             

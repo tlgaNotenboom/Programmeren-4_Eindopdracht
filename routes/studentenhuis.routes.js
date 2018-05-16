@@ -5,6 +5,6 @@ routes.post('/studentenhuis', studentenhuisController.addStudentenhuis)
 routes.get('/studentenhuis', studentenhuisController.getStudentenHuis)
 routes.get('/studentenhuis/:huisId', studentenhuisController.getSpecificStudentenHuis)
 routes.put('/studentenhuis/:huisId', studentenhuisController.updateStudentenHuis)
-// routes.delete('/studentenhuis/:huisId')
+routes.delete('/studentenhuis/:huisId', studentenhuisController.deleteStudentenhuis)
 
 module.exports = routes
