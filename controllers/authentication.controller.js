@@ -1,5 +1,5 @@
 const assert = require('assert')
-const ApiError = require('../domain/ApiError')
+const ApiError = require('../models/ApiError')
 const db = require('../config/db')
 const auth = require('../util/auth/authentication')
 const bcrypt = require('bcryptjs')

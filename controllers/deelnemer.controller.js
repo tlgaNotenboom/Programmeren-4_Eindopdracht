@@ -2,21 +2,21 @@ const assert = require('assert')
 const mysql = require('mysql')
 const ApiError = require('../models/ApiError')
 const db = require('../config/db')
-const MaaltijdResponse = require('../models/MaaltijdResponse')
+const Deelnemer = require('models')
+const DeelnemerResponse = require('../models/DeelnemerResponse')
 const auth = require('../util/auth/authentication')
-const Maaltijd = require('../models/Maaltijd')
 
 module.exports = {
     getMaaltijd(req, res, next) {
-        let maaltijdList = []
-        let maaltijdResponse = undefined
-        db.query('SELECT * FROM maaltijd WHERE StudentenhuisID = '+ req.params.huisId, (error, result) => {
+        let deelnemerList = []
+        let deelnemerResponse = undefined
+        db.query('SELECT * FROM deelnemers WHERE StudentenhuisID = '+ req.params.huisId +' AND MaaltijdID = '+ req.params.maaltijdId, (error, result) => {
             if (error) {
                 next(new ApiError(error, 401))
             } else {
                 console.log(result[0])
                 for (let i = 0; i < result.length; i++) {
-                    maaltijdResponse= new MaaltijdResponse(result[i].ID, result[i].Naam, result[i].Beschrijving, result[i].Ingredienten, result[i].Allergie, result[i].Prijs, result[i].UserID, result[i].StudentenHuisID)
+                    deelnemerResponse= new DeelnemerResponse(result[i].ID, result[i].Naam, result[i].Beschrijving, result[i].Ingredienten, result[i].Allergie, result[i].Prijs, result[i].UserID, result[i].StudentenHuisID)
                     maaltijdList.push(maaltijdResponse)
                 }
                 res.status(200).json(maaltijdList).end()

@@ -1,5 +1,5 @@
 const assert = require('assert')
-const ApiError = require('../domain/ApiError')
+const ApiError = require('../models/ApiError')
 
 class Studentenhuis {
     constructor(naam, adres) {

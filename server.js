@@ -6,7 +6,7 @@ const deelnemer_routes = require('./routes/deelnemer.routes')
 const maaltijd_routes = require('./routes/maaltijd.routes')
 const studentenhuis_routes = require('./routes/studentenhuis.routes')
 const AuthController = require('./controllers/authentication.controller')
-const ApiError = require('./domain/ApiError')
+const ApiError = require('./models/ApiError')
 const settings = require('./config/config')
 
 
