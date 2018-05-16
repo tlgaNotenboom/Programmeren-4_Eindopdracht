@@ -58,9 +58,13 @@ module.exports = {
                 if (error) {
                     next(new ApiError(error, 401))
                 } else {
+                    if(result[0] !== undefined) {
                     studentenhuisResponse = new StudentenhuisResponse(result[0].ID, result[0].Naam, result[0].Adres, result[0].Contact, result[0].Email)
                     res.status(200).json(studentenhuisResponse)
+                } else {
+                    next(new ApiError("Studentenhuis not found", 404))
                 }
+            }
             })
         },
 
