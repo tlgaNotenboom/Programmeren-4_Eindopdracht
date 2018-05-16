@@ -37,6 +37,7 @@ describe('Registration', () => {
                         module.exports = {
                             token: validToken
                         }
+                        done()
                     })
 
                 it('should return an error on GET request', (done) => {
