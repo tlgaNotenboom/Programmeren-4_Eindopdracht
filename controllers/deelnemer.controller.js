@@ -67,12 +67,14 @@ module.exports = {
                     if (error) {
                         next(new ApiError(error, 401));
                     } else {
-                        db.query('SELECT * FROM view_deelnemers WHERE StudentenHuisID = '+ "'" + req.params.huisId + "'"+' AND MaaltijdID = '+ "'" + req.params.maaltijdId + "'", (error, result) => {
+                        db.query('SELECT * FROM view_deelnemers WHERE StudentenHuisID = '+ "'" + req.params.huisId + "'"+' AND MaaltijdID = '+ "'" + req.params.maaltijdId + "'"+' AND Email = '+"'"+email+"'", (error, result) => {
                             if (error) {
                                 next(new ApiError(error, 404))
                             } else {
+                                console.log(result[0])
                                 deelnemerResponse = new DeelnemerResponse(result[0].Voornaam, result[0].Achternaam, result[0].Email)
-                                res.status(200).json(deelnemer.getDefaultResponse()).end()
+                                console.log(deelnemerResponse.getDefaultResponse())
+                                res.status(200).json(deelnemerResponse.getDefaultResponse()).end()
                             }
                         })
                     }

@@ -12,6 +12,7 @@ class DeelnemerResponse {
             achternaam: this.achternaam,
             email: this.email
         }
+        return response
     }
 }
 module.exports = DeelnemerResponse

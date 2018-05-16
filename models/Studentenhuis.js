@@ -7,7 +7,7 @@ class Studentenhuis {
         assert(typeof(naam) === 'string', 'Naam must be a string')
         assert(typeof(adres) === 'string', 'Adres must be a string')
         } catch(ex) {
-            throw(new ApiError(ex.toString(), 422))
+            throw(new ApiError(ex.message, 412))
         }
 
         this.naam = naam
