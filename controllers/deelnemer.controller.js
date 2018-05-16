@@ -67,7 +67,7 @@ module.exports = {
                     if (error) {
                         next(new ApiError(error, 401));
                     } else {
-                        db.query('SELECT * FROM view_deelnemers WHERE StudentenHuisID = '+ "'" + req.params.huisId + "'"+' AND MaaltijdID = '+ "'" + req.params.maaltijdId + "'", (error, result) => {
+                        db.query('SELECT * FROM view_deelnemers WHERE StudentenHuisID = '+ "'" + req.params.huisId + "'"+' AND MaaltijdID = '+ "'" + req.params.maaltijdId + "'"+' AND Email = '+"'"+email+"'", (error, result) => {
                             if (error) {
                                 next(new ApiError(error, 404))
                             } else {
