@@ -157,7 +157,7 @@ chai.request(server)
     })
 })
 
-})
+
 
 
 describe('Studentenhuis API PUT', () => {
@@ -237,24 +237,24 @@ describe('Studentenhuis API DELETE', () => {
                 done()
             })
     })
-})
 
-it('should return a studentenhuis when posting a valid object', (done) => {
-    // Dit staat niet in de opdracht
-    done()
-})
 
-it('should throw an error when naam is missing', (done) => {
-    //
-    // Hier schrijf je jouw testcase.
-    //
-    done()
-})
+    it('should return a studentenhuis when posting a valid object', (done) => {
+        // Geen tijd meer voor
+        done()
+    })
 
-it('should throw an error when adres is missing', (done) => {
-//
-// Hier schrijf je jouw testcase.
-//
-done()
-})
+    it('should throw an error when naam is missing', (done) => {
+        // Geen tijd meer voor
+        // Hier schrijf je jouw testcase.
+        //
+        done()
+    })
+
+    it('should throw an error when adres is missing', (done) => {
+        // Geen tijd meer voor
+        // Hier schrijf je jouw testcase.
+        //
+        done()
+    })
 })
