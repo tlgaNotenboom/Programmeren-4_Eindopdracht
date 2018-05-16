@@ -62,7 +62,7 @@ module.exports = {
             if (error) {
                 next(error);
             } else {
-                console.log(result[0].ID)
+                console.log(result[0])
                 db.query('INSERT INTO deelnemers(UserID, StudentenhuisID, MaaltijdID) VALUES (' + "'" + result[0].ID + "'" + ' ,' + "'" + req.params.huisId + "'" + ', ' + "'" + req.params.maaltijdId + "')", function (error, rows, fields) {
                     if (error) {
                         next(new ApiError(error, 401));

@@ -114,11 +114,14 @@ module.exports = {
                 } else {
                     const token = req.header('x-access-token') || ""
                     var payload = auth.decodeToken(token, (err, payload) => {
+                        if(err) {
+                            next(new ApiError(err, 404))
+                        } else {
                         let email = payload.sub.user
                         if (email !== result[0].Email) {
                             next(new ApiError(err, 409))
                         } else {
-                            studentenhuis = new Studentenhuis(req.body.name, req.body.address)
+                           
                             db.query('DELETE FROM studentenhuis WHERE ID = ' + "'" + req.params.huisId + "'", (error, result) => {
                                 if (error) {
                                     next(new ApiError(error, 404))
@@ -129,7 +132,9 @@ module.exports = {
                                 }
                             })
                         }
+                    }
                     })
+                    
                 }
             })
         }
